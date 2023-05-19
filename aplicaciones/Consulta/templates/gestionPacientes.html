@@ -1,0 +1,157 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Pacientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        
+        <h2>Gestión de Paciente</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarPaciente/" method="POST">{% csrf_token %}
+                    <table>
+                        <tbody><tr>
+        <th><label for="id_Id">Id:</label></th>
+        <td>
+          
+          <input class="form-control" type="number" name="Id" required="" id="id_Id">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_nombres">Nombres:</label></th>
+        <td>
+          
+          <input class="form-control" type="text" name="nombres" maxlength="50" required="" id="id_nombres">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_apellidos">Apellidos:</label></th>
+        <td>
+          
+          <input class="form-control" type="text" name="apellidos" maxlength="50" required="" id="id_apellidos">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_fecha_nacimiento">Mm/dd/yyyy:</label></th>
+        <td>
+          
+          <input class="form-control" type="date" name="fecha_nacimiento" id="id_fecha_nacimiento">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_sexo">Sexo:</label></th>
+        <td>
+          
+          <select name="sexo" required="" id="id_sexo" class="form-control selected">
+      <option value="" selected="">---------</option>
+    
+      <option value="M">Masculino</option>
+    
+      <option value="F">Femenino</option>
+    
+      <option value="O">Otro</option>
+    
+    </select>
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_altura">Altura:</label></th>
+        <td>
+          
+          <input class="form-control" type="number" name="altura" step="0.01" required="" id="id_altura">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_peso">Peso:</label></th>
+        <td>
+          
+          <input class="form-control" type="number" name="peso" step="0.01" required="" id="id_peso">
+          
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <th><label for="id_actividad_aerobica">Actividad aerobica:</label></th>
+        <td>
+          
+          <input class="form-control" type="checkbox" name="actividad_aerobica" id="id_actividad_aerobica">
+          
+          
+            
+          
+        </td>
+      </tr>
+                       </tbody></table>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <h1>Listado de Pacientes</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombres</th>
+                        <th>Apellido</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Sexo</th>
+                        <th>Altura</th>
+                        <th>Peso</th>
+                        <th>Actividad Aerobica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in pacientes %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{c.nombres}}</td>
+                        <td>{{c.apellidos}}</td>
+                        <td>{{c.fecha_nacimiento}}</td>
+                        <td>{{c.sexo}}</td>
+                        <td>{{c.altura}}</td>
+                        <td>{{c.peso}}</td>
+                        <td>{{c.actividad_aerobica}}</td>
+                        <td><a href="edicionPaciente/{{c.id}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminarPaciente/{{c.id}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

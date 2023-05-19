@@ -1,0 +1,28 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Pacientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Paciente</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarPaciente/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtId" name="txtId" value="{{paciente.id}}" class="form-control" placeholder="Id"
+                            minlength="6" maxlength="6" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombres" name="txtNombres" value="{{paciente.nombres}}" class="form-control" placeholder="Nombres"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
